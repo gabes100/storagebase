@@ -1,11 +1,11 @@
 export class User {
-    firstName : String;
-    lastName : String;
+    firstname : String;
+    lastname : String;
     username : String;
 
     constructor(obj : any){
         this.username = obj.username;
-        this.firstName = obj.firstName;
-        this.lastName = obj.lastName;
+        this.firstname = obj.firstname;
+        this.lastname = obj.lastname;
     }
 }

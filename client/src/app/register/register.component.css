@@ -5,13 +5,18 @@
 }
 
 .card{
-    height: 350px;
+    height: 380px;
     margin-top: auto;
     margin-bottom: auto;
     width: 400px;
     background-color: rgba(0,0,0,0.5) !important;
 }
+    
 
+.cancel-button {
+    margin-left: 10px;
+}
+    
 .card-header h3{
     color: white;
 }
@@ -51,7 +56,8 @@ input:focus{
     color: black;
     background-color: white;
 }
-    
+
+
 .links{
     color: white;
 }
