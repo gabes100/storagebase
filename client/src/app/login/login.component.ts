@@ -12,7 +12,7 @@ import { DataService } from '../data.service';
 export class LoginComponent implements OnInit {
   username : String = '';
   password : String = '';
-
+  
   constructor(
     private router : Router, 
     private api : ApiService,
@@ -20,6 +20,12 @@ export class LoginComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    const user = JSON.parse(localStorage.getItem('user-login'));
+    
+    // go home if logged in
+    if (user){
+      this.router.navigate(['/home']);
+    }
   }
 
   attemptLogin(){
@@ -27,7 +33,7 @@ export class LoginComponent implements OnInit {
       let credentials = {username : this.username, password : this.password};
       this.api.login(credentials).subscribe(
         user => {
-          this.data.changeUser(user)
+          this.data.changeUser(user);
           this.router.navigate(['/home']);
         },
         err =>{
