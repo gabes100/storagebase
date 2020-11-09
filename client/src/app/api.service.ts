@@ -17,4 +17,12 @@ export class ApiService {
   register(credentials) : Observable<any>{
     return this.http.post<any>('http://localhost:8080/register', credentials);
   }
+
+  getOrders() : Observable<any>{
+    return this.http.get<any[]>('http://localhost:8080/order');
+  }
+  
+  createOrder(credentials) : Observable<any>{
+    return this.http.post<any>('http://localhost:8080/order', credentials);
+  }
 }

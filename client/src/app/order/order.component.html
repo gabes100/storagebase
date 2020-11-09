@@ -1,0 +1,168 @@
+<div class="container container-top">
+    <div class="card main">
+        <div class="card-header">
+            <h2 style="text-align: center;">Order List</h2>
+            <button class="btn btn-success float-right" data-toggle="modal" data-target="#orderCreate">Create New Order</button>
+        </div>
+        <div class="card-body menu">
+            <div class="container">
+                <table class="table table-hover">
+                  <thead>
+                    <tr class="table-header">
+                      <th>Order Name</th>
+                      <th>Date</th>
+                      <th>Number of Items</th>
+                      <th>Total Price</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let order of orders" >
+                      <td>{{order.name}}</td>
+                      <td>{{order.date}}</td>
+                      <td>{{order.totalItems}}</td> 
+                      <td>{{order.totalPrice}}</td>
+                      <td> 
+                        <div>
+                          <button class="btn btn-primary" data-toggle="modal" data-target="#viewOrder">View</button>
+                        </div>
+                       </td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="viewOrder" tabindex="-1" role="dialog" aria-labelledby="viewOrder" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewOrder">Order</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="col">
+                        <button type="button" class="btn btn-primary float-right" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="orderCreate" tabindex="-1" role="dialog" aria-labelledby="orderCreate" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="orderCreate">Enter New Order</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="orderForm">
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label for="orderName">Order Name</label>
+                        <input type="text" class="form-control" id="orderName" formControlName="orderName" placeholder="Order Name">
+                      </div>
+                      <div class="form-group col-md-2">
+                        <label for="totalItems">Items</label>
+                        <input type="number" disabled class="form-control" id="totalItems" formControlName="totalItems" placeholder="0">
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="totalPrice">Total Price</label>
+                        <input type="number" disabled class="form-control" id="totalPrice" formControlName="totalPrice" placeholder="$0.00">
+                      </div>
+                    </div>
+                    <ul class="list-group">
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                          <span>Item 1</span>
+                          <span class="badge badge-primary badge-pill">3</span>
+                        </div>
+                        <div>
+                          <button class="btn btn-danger btn-circle"><i class="fa fa-trash"></i></button>
+                       </div>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                          <span>Item 2</span>
+                          <span class="badge badge-primary badge-pill">20</span>
+                        </div>
+                        <div>
+                          <button class="btn btn-danger btn-circle"><i class="fa fa-trash"></i></button>
+                       </div>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                          <span>Item 3</span>
+                          <span class="badge badge-primary badge-pill">1</span>
+                        </div>
+                        <div>
+                          <button class="btn btn-danger btn-circle"><i class="fa fa-trash"></i></button>
+                       </div>
+                      </li>
+                    </ul>
+                    <button class="btn btn-success float-right" data-toggle="modal" data-target="#createItem">Add New Item</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" data-dismiss="modal"class="btn btn-primary float-right">Create</button>
+          </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="createItem" tabindex="-1" role="dialog" aria-labelledby="createItem" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="createItem">Add Item</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="itemForm">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="itemName">Item Name</label>
+                <input type="text" class="form-control" id="itemName" formControlName="itemName" placeholder="Eggs">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="type">Type</label>
+                <select id="type" class="form-control" formControlName="type">
+                  <option selected>Item Type</option>
+                  <option>Dairy</option>
+                  <option>Grain</option>
+                  <option>Meat</option>
+                  <option>Fruit</option>
+                  <option>Vegetable</option>
+                  <option>Seafood</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                <label for="quantity">Qt.</label>
+                <input type="number" class="form-control" id="quantity" formControlName="quantity" placeholder="1">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="price">Price</label>
+                <input type="number" class="form-control" id="price" formControlName="price" placeholder="$3.99">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="expiration">Expiration</label>
+                <input type="date" class="form-control" id="expiration" formControlName="expiration">
+              </div>
+            </div>
+            <button type="button" class="btn btn-success float-right" data-dismiss="modal">Add</button>
+          </form>
+          </div>
+        </div>
+    </div>
+</div>
