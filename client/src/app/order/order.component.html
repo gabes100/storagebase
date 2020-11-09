@@ -78,35 +78,18 @@
                         <input type="number" disabled class="form-control" id="totalPrice" formControlName="totalPrice" placeholder="$0.00">
                       </div>
                     </div>
-                    <ul class="list-group">
+                    <ul *ngFor="let item of itemList; let i = index" class="list-group">
                       <li class="list-group-item d-flex justify-content-between align-items-center">
                         <div>
-                          <span>Item 1</span>
-                          <span class="badge badge-primary badge-pill">3</span>
+                          <span>{{item.name}}</span>
+                          <span class="badge badge-primary badge-pill">{{item.quantity}}</span>
                         </div>
                         <div>
-                          <button class="btn btn-danger btn-circle"><i class="fa fa-trash"></i></button>
-                       </div>
-                      </li>
-                      <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <div>
-                          <span>Item 2</span>
-                          <span class="badge badge-primary badge-pill">20</span>
-                        </div>
-                        <div>
-                          <button class="btn btn-danger btn-circle"><i class="fa fa-trash"></i></button>
-                       </div>
-                      </li>
-                      <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <div>
-                          <span>Item 3</span>
-                          <span class="badge badge-primary badge-pill">1</span>
-                        </div>
-                        <div>
-                          <button class="btn btn-danger btn-circle"><i class="fa fa-trash"></i></button>
+                          <button class="btn btn-danger btn-circle" (click)="removeItem(i)"><i class="fa fa-trash"></i></button>
                        </div>
                       </li>
                     </ul>
+                    <button class="btn btn-danger float-left" (click)="clearAllItems()">Clear All</button>
                     <button class="btn btn-success float-right" data-toggle="modal" data-target="#createItem">Add New Item</button>
                 </form>
             </div>
@@ -160,7 +143,7 @@
                 <input type="date" class="form-control" id="expiration" formControlName="expiration">
               </div>
             </div>
-            <button type="button" class="btn btn-success float-right" data-dismiss="modal">Add</button>
+            <button type="button" class="btn btn-success float-right" (click)="addItem()" data-dismiss="modal">Add</button>
           </form>
           </div>
         </div>
