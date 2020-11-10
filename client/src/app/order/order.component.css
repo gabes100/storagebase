@@ -21,6 +21,9 @@
     margin-left: 10px;
 }
 
+nav {height:50x}
+nav {overflow:hidden;  max-height:300px; overflow-y:scroll;}
+
 .modal-dialog {
     width: 700px;
 }

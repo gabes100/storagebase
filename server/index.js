@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const user = require('./routes/user');
 const order = require('./routes/order');
+const item = require('./routes/item');
 
 
 const connection = mysql.createConnection({
@@ -21,6 +22,7 @@ const app = express()
   .use(cors())
   .use(bodyParser.json())
   .use(user(connection))
+  .use(item(connection))
   .use(order(connection));
 
 app.listen(port, () => {

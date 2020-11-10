@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ApiService } from '../api.service';
 import { Item } from '../item';
+import { Order } from '../order';
 
 @Component({
   selector: 'app-order',
@@ -9,7 +10,7 @@ import { Item } from '../item';
   styleUrls: ['./order.component.css']
 })
 export class OrderComponent implements OnInit {
-  public orders: any[]
+  public orders: Order[]
  
   public itemList: Item[];
   public orderForm: FormGroup;
@@ -30,6 +31,7 @@ export class OrderComponent implements OnInit {
       totalItems: new FormControl(''),
       totalPrice: new FormControl(''),
     });
+
     this.itemForm = new FormGroup({
       itemName: new FormControl(''),
       type: new FormControl(''),
@@ -40,8 +42,40 @@ export class OrderComponent implements OnInit {
   }
 
   createOrder(){
-    
+    const today = new Date().toJSON().slice(0, 10);
+    const name = this.orderForm.get('orderName').value;
+
+    if (this.itemList && name) {
+       
+        let credentials_order = {
+         name : name, 
+         enterDate: today.toString(),
+        };
+       
+       this.api.createOrder(credentials_order).subscribe(newOrder => {
+        this.itemList.forEach(item => {
+   
+        let credentials_item = {
+          name : item.name, 
+          expiration: item.expiration.toString(), 
+          price: item.price,
+          itemType: item.type, 
+          orderId: newOrder.id};
+
+          console.log(credentials_item);
+       
+          for (var index = 0; index < item.quantity; index++) {
+              this.api.enterItem(credentials_item).subscribe();  
+            }
+          });
+       });
+    } else {
+      alert("Please enter order name and add items");
+    }
+
+    //window.location.reload(); //reload data
   }
+
   addItem(){
     const newItem = {
       name: this.itemForm.get("itemName").value,
@@ -55,23 +89,32 @@ export class OrderComponent implements OnInit {
     this.itemList.push(itemElem);
 
     //get totals:
-    const totalItems = this.orderForm.get('totalItems').value
+    const totalItems = this.orderForm.get('totalItems').value;
     this.orderForm.get('totalItems').setValue(Number(totalItems) + Number(newItem.quantity));
 
-    const totalPrice = this.orderForm.get('totalPrice').value
-    const price = Number(totalPrice) + (Number(newItem.price) * Number(newItem.quantity));
+    const totalPrice = this.orderForm.get('totalPrice').value;
+    const price =  (Math.round(Number(totalPrice) + (Number(newItem.price) * Number(newItem.quantity)) * 100) / 100).toFixed(2);
     this.orderForm.get('totalPrice').setValue(price);
+
+    //reset form
     this.itemForm.reset();
   }
 
   clearAllItems(){
-    this.itemList.forEach(element => {
-      this.removeItem(this.itemList.indexOf(element));
-    });
+    this.itemList = [];
 
+    this.orderForm.get("totalPrice").setValue('0.00');
+    this.orderForm.get("totalItems").setValue('0');
   }
 
   removeItem(index: number){
+    const totalItems = this.orderForm.get('totalItems').value;
+    const totalPrice = this.orderForm.get('totalPrice').value;
+  
+    const price = (Math.round(Number(totalPrice) - Number(this.itemList[index].price) * Number(this.itemList[index].quantity) * 100) / 100).toFixed(2);
+    this.orderForm.get("totalPrice").setValue(price);
+    this.orderForm.get("totalItems").setValue(Number(totalItems) - Number(this.itemList[index].quantity));
+
     this.itemList.splice(index, 1);
   }
 

@@ -1,28 +1,39 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Order } from './order';
+import { Item } from './item';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
+  private baseURL = "http://localhost:8080/";
 
   constructor(private http : HttpClient) { }
 
   login(credentials) : Observable<any>{
-    return this.http.post<any>('http://localhost:8080/login', credentials);
+    return this.http.post<any>(this.baseURL + 'login', credentials);
   }
 
   register(credentials) : Observable<any>{
-    return this.http.post<any>('http://localhost:8080/register', credentials);
+    return this.http.post<any>(this.baseURL + 'register', credentials);
   }
 
   getOrders() : Observable<any>{
-    return this.http.get<any[]>('http://localhost:8080/order');
+    return this.http.get<Order[]>(this.baseURL +'order');
   }
   
   createOrder(credentials) : Observable<any>{
-    return this.http.post<any>('http://localhost:8080/order', credentials);
+    return this.http.post<Order>(this.baseURL +'order', credentials);
+  }
+  
+  getItems() : Observable<any>{
+    return this.http.get<Item[]>(this.baseURL +'item');
+  }
+
+  enterItem(credentials) : Observable<any>{
+    return this.http.post<Item>(this.baseURL +'item', credentials);
   }
 }
