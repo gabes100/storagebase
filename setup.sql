@@ -18,8 +18,8 @@ create table GroceryOrder (
   userId INT,
   name VARCHAR(255) NOT NULL,
   enterDate VARCHAR(255) NOT NULL,
-  totalItems NUMERIC NOT NULL,
-  totalPrice NUMERIC NOT NULL,
+  totalItems DECIMAL(10, 2) NOT NULL,
+  totalPrice DECIMAL(10, 2) NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (userId) REFERENCES User(id)
 );

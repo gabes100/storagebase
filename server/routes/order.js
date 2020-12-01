@@ -2,7 +2,7 @@
 
 function createRouter(db) {
    const router = express.Router();
-   
+
    // Create Order
    router.post('/order', (req,res) => {
 
@@ -17,7 +17,7 @@ function createRouter(db) {
     db.query('INSERT INTO GroceryOrder SET ?',newOrder, function (error, results) {
       if (error) {
         res.status(402).json();
-      } else { 
+      } else {
         const orderWithId = {
           ...newOrder,
           id: results.insertId,
@@ -30,11 +30,11 @@ function createRouter(db) {
   // get order by name
   router.get('/order', (req,res) => {
 
-    db.query('SELECT * FROM GroceryOrder', function (error, results) { 
+    db.query('SELECT * FROM GroceryOrder', function (error, results) {
         if (error) {
             res.status(402).json();
         } else {
-            res.json(results); 
+            res.json(results);
         }
     });
   });
