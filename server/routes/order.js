@@ -9,6 +9,9 @@ function createRouter(db) {
     let newOrder = {
       name : req.body.name,
       enterDate : req.body.enterDate,
+      totalPrice : req.body.totalPrice,
+      totalItems : req.body.totalItems,
+      userId : req.body.userId,
     }
 
     db.query('INSERT INTO GroceryOrder SET ?',newOrder, function (error, results) {

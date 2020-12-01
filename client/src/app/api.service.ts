@@ -29,8 +29,8 @@ export class ApiService {
     return this.http.post<Order>(this.baseURL +'order', credentials);
   }
   
-  getItems() : Observable<any>{
-    return this.http.get<Item[]>(this.baseURL +'item');
+  getItemsByOrderName(credentials) : Observable<any>{
+    return this.http.post<Item[]>(this.baseURL +'item/order', credentials);
   }
 
   enterItem(credentials) : Observable<any>{

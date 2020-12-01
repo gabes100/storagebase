@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ApiService } from '../api.service';
 import { Item } from '../item';
@@ -15,7 +15,9 @@ export class OrderComponent implements OnInit {
   public itemList: Item[];
   public orderForm: FormGroup;
   public itemForm: FormGroup;
-
+  public user: any;
+  public isEdit: boolean;
+  
   constructor( 
     private api : ApiService) { }
 
@@ -25,6 +27,7 @@ export class OrderComponent implements OnInit {
     });
 
     this.itemList = [];
+    this.user = JSON.parse(localStorage.getItem('user-login'));
 
     this.orderForm = new FormGroup({
       orderName: new FormControl(''),
@@ -41,39 +44,60 @@ export class OrderComponent implements OnInit {
     });
   }
 
+  openModal(isEdit: boolean, orderIndex: number) {
+    this.isEdit = isEdit;
+
+    // reset on load
+    this.itemList = [];
+    this.orderForm.reset();
+    this.itemForm.reset();
+
+    // get order items
+    if (!this.isEdit) {
+      const orderID = {orderID: this.orders[orderIndex].id};
+
+      this.api.getItemsByOrderName(orderID).subscribe(items =>{
+        this.itemList = items;
+      });
+    }
+
+    this.orderForm.get('orderName').patchValue(this.orders[orderIndex].name);
+    this.orderForm.get('totalItems').patchValue(this.orders[orderIndex].totalItems);
+    this.orderForm.get('totalPrice').patchValue(this.orders[orderIndex].totalPrice);
+  }
+
   createOrder(){
     const today = new Date().toJSON().slice(0, 10);
     const name = this.orderForm.get('orderName').value;
 
     if (this.itemList && name) {
-       
         let credentials_order = {
          name : name, 
          enterDate: today.toString(),
+         totalItems: this.orderForm.get('totalItems').value,
+         totalPrice: this.orderForm.get('totalPrice').value,
+         userId: this.user.id,
         };
        
        this.api.createOrder(credentials_order).subscribe(newOrder => {
-        this.itemList.forEach(item => {
+          this.itemList.forEach(item => {
    
-        let credentials_item = {
-          name : item.name, 
-          expiration: item.expiration.toString(), 
-          price: item.price,
-          itemType: item.type, 
-          orderId: newOrder.id};
-
-          console.log(credentials_item);
-       
-          for (var index = 0; index < item.quantity; index++) {
-              this.api.enterItem(credentials_item).subscribe();  
-            }
-          });
+          let credentials_item = {
+            name : item.name, 
+            expiration: item.expiration.toString(), 
+            price: Number(item.price),
+            quantity: item.quantity,
+            itemType: item.type, 
+            orderId: newOrder.id,
+          };
+          this.api.enterItem(credentials_item).subscribe();
+        });
        });
+       document.getElementById('orderCreate').style.display = "none"; //close modal
+       location.reload();
     } else {
-      alert("Please enter order name and add items");
+      alert("Please enter order name and/or add items");
     }
-
-    //window.location.reload(); //reload data
   }
 
   addItem(){
@@ -93,7 +117,7 @@ export class OrderComponent implements OnInit {
     this.orderForm.get('totalItems').setValue(Number(totalItems) + Number(newItem.quantity));
 
     const totalPrice = this.orderForm.get('totalPrice').value;
-    const price =  (Math.round(Number(totalPrice) + (Number(newItem.price) * Number(newItem.quantity)) * 100) / 100).toFixed(2);
+    const price = (Number(totalPrice) + (Number(newItem.price) * Number(newItem.quantity))).toFixed(2);
     this.orderForm.get('totalPrice').setValue(price);
 
     //reset form

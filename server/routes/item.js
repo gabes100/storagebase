@@ -10,6 +10,7 @@ function createRouter(db) {
       name : req.body.name,
       expiration : req.body.expiration,
       price : req.body.price,
+      quantity : req.body.quantity,
       itemType : req.body.itemType,
       orderId : req.body.orderId,
     }
@@ -23,10 +24,9 @@ function createRouter(db) {
     });
   });
 
-  // get item by name
-  router.get('/item', (req,res) => {
-
-    db.query('SELECT * FROM Item', function (error, results) { 
+  // get items by orderId
+  router.post('/item/order', (req,res) => {
+    db.query('SELECT * FROM Item WHERE orderID = ?', req.body.orderID, function (error, results) { 
         if (error) {
             res.status(402).json();
         } else {
