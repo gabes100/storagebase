@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './register/register.component';
 import { ProfileNavComponent } from './profile-nav/profile-nav.component';
 import { OrderComponent } from './order/order.component';
+import { ItemComponent } from './item/item.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { OrderComponent } from './order/order.component';
     HomeComponent,
     RegisterComponent,
     ProfileNavComponent,
-    OrderComponent
+    OrderComponent,
+    ItemComponent
   ],
   imports: [
     BrowserModule,

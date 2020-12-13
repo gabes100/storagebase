@@ -32,8 +32,15 @@ export class ApiService {
   getItemsByOrderName(credentials) : Observable<any>{
     return this.http.post<Item[]>(this.baseURL +'item/order', credentials);
   }
-
+  
+  getItemsNoStorage() : Observable<any>{
+    return this.http.get<Item[]>(this.baseURL +'item/nostorage');
+  }
+  
   enterItem(credentials) : Observable<any>{
     return this.http.post<Item>(this.baseURL +'item', credentials);
+  }
+  createUnit(credentials) : Observable<any>{
+    return this.http.post<Item>(this.baseURL +'storageunit', credentials);
   }
 }

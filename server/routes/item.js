@@ -35,6 +35,17 @@ function createRouter(db) {
     });
   });
 
+  // get items with no storages
+  router.get('/item/nostorage', (req,res) => {
+    db.query('SELECT * FROM Item WHERE storageID is null', function (error, results) { 
+        if (error) {
+            res.status(402).json();
+        } else {
+            res.json(results); 
+        }
+    });
+  });
+
   return router;
 }
 

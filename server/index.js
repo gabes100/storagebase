@@ -5,7 +5,7 @@ const mysql = require('mysql');
 const user = require('./routes/user');
 const order = require('./routes/order');
 const item = require('./routes/item');
-
+const storage = require('./routes/storage');
 
 const connection = mysql.createConnection({
   host     : 'localhost',
@@ -23,7 +23,8 @@ const app = express()
   .use(bodyParser.json())
   .use(user(connection))
   .use(item(connection))
-  .use(order(connection));
+  .use(order(connection))
+  .use(storage(connection));
 
 app.listen(port, () => {
   console.log(`Express server listening on port ${port}`);

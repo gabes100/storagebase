@@ -12,7 +12,7 @@ import { Order } from '../order';
 export class OrderComponent implements OnInit {
   // server data
   public user: any;
-  public orders: Order[]
+  public orders: Order[];
 
   // reactive forms
   public orderForm: FormGroup; 
@@ -154,7 +154,7 @@ export class OrderComponent implements OnInit {
     const totalItems = this.orderForm.get('totalItems').value;
     const totalPrice = this.orderForm.get('totalPrice').value;
   
-    const price = (Math.round(Number(totalPrice) - Number(this.itemList[index].price) * Number(this.itemList[index].quantity) * 100) / 100).toFixed(2);
+    const price = (Math.round(Number(totalPrice) - Number(this.itemList[index].price) * Number(this.itemList[index].quantity))).toFixed(2);
     this.orderForm.get("totalPrice").setValue(price);
     this.orderForm.get("totalItems").setValue(Number(totalItems) - Number(this.itemList[index].quantity));
 

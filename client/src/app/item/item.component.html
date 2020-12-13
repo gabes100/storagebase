@@ -1,0 +1,83 @@
+<div class="container container-top">
+    <div class="card main">
+        <div class="card-header">
+            <h4 style="text-align: center;"><strong>Item Management</strong></h4>
+            <p style="text-align: center;">You have items that need to be stored, click the plus to add them to the corrent place</p>
+            <button class="btn btn-success float-right" data-toggle="modal" data-target="#storageCreate">Create Storage Unit</button>
+        </div>
+        <div class="card-body menu">
+            <div class="main-table">
+            <table class="table table-hover">
+                <thead>
+                <tr class="table-header">
+                    <th>Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Expiration</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr style="text-align: center;" *ngFor="let item of items; let i = index" >
+                    <td>{{item.name}}</td>
+                    <td>{{item.quantity}}</td>
+                    <td>{{item.price}}</td> 
+                    <td>{{item.expiration}}</td>
+                    <td> 
+                    <div>
+                        <button class="btn btn-success" data-toggle="modal" data-target="#storageAdd"><i class="fa fa-plus"></i></button>
+                    </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+        </div>
+        <div class="card-footer">
+            <button class="btn btn-secondary float-right" routerLink="/home" >Dashboard</button>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="storageCreate" tabindex="-1" role="dialog" aria-labelledby="storageCreate" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="storageCreate">Create New Storage Unit</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="unitForm">
+                    <div class="form-row">
+                      <div class="form-group col-md-12">
+                        <label for="storageName">Storge Unit Name</label>
+                        <input type="text" required class="form-control" id="storageName" formControlName="unitName" placeholder="Storage Unit Name">
+                      </div>
+                    </div>
+                </form>     
+            </div>
+            <div class="modal-footer">
+              <button type="submit"(click)="createUnit()" data-dismiss="modal" class="btn btn-primary float-right">Create</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="storageAdd" tabindex="-1" role="dialog" aria-labelledby="storageAdd" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="storageAdd">Add to Unit</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+               <p>test</p>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary float-right">Create</button>
+            </div>
+        </div>
+    </div>
+</div>

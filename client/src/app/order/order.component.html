@@ -22,7 +22,7 @@
                       <td>{{order.name}}</td>
                       <td>{{order.enterDate}}</td>
                       <td>{{order.totalItems}}</td> 
-                      <td>${{order.totalPrice}}</td>
+                      <td>{{order.totalPrice}}</td>
                       <td> 
                         <div>
                           <button class="btn btn-primary" data-toggle="modal" (click)='openModal(false, i)' data-target="#orderCreate">View</button>
@@ -78,7 +78,7 @@
                           <span class="badge badge-primary badge-pill">{{item.quantity}}</span>
                         </div>
                         <div>
-                          <button class="btn btn-danger btn-circle" (click)="removeItem(i)"><i class="fa fa-trash"></i></button>
+                          <button *ngIf="isEdit" class="btn btn-danger btn-circle" (click)="removeItem(i)"><i class="fa fa-trash"></i></button>
                        </div>
                       </li>
                     </ul>
