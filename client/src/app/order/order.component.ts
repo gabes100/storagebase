@@ -27,12 +27,19 @@ export class OrderComponent implements OnInit {
     private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.api.getOrders().subscribe(orders =>{
+
+    this.user = JSON.parse(localStorage.getItem('user-login'));
+
+    let cred = {
+      userId : this.user.id
+    }
+    
+    this.api.getOrders(cred).subscribe(orders =>{
       this.orders = orders;
     });
 
     this.itemList = [];
-    this.user = JSON.parse(localStorage.getItem('user-login'));
+   
 
     // create forms
     this.orderForm = this.fb.group(

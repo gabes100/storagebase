@@ -54,8 +54,9 @@ create table Item (
   FOREIGN KEY (typeId) REFERENCES ItemType(id)
 );
 
-INSERT INTO User
-VALUES(1, 'Gabriel', 'Veldboom', 'gabriel.veldboom', '$2b$10$ORP3AYeSQA0tCXHV1sQQhOV4//0mlPDnEVvQTov/qOHDi3EuV7Svy');
+INSERT INTO User VALUES
+(1, 'Gabriel', 'Veldboom', 'gabriel.veldboom', '$2b$10$ORP3AYeSQA0tCXHV1sQQhOV4//0mlPDnEVvQTov/qOHDi3EuV7Svy'),
+(2, 'John', 'Doe', 'john.doe', '$2b$10$lersRRtySsbYRSsDbpqcVOiymZGQamxFN/y1v1IsR.fdBbMCUaHMq');
 
 INSERT INTO GroceryOrder VALUES
 (1, 1, 'First Order', '2020-12-14', 11.00, 29.94),

@@ -21,12 +21,12 @@ export class ApiService {
     return this.http.post<any>(this.baseURL + 'register', credentials);
   }
 
-  getOrders() : Observable<any>{
-    return this.http.get<Order[]>(this.baseURL +'order');
+  getOrders(credentials) : Observable<any>{
+    return this.http.post<Order[]>(this.baseURL +'order',credentials);
   }
   
   createOrder(credentials) : Observable<any>{
-    return this.http.post<Order>(this.baseURL +'order', credentials);
+    return this.http.post<Order>(this.baseURL +'order/create', credentials);
   }
   
   getItemsByOrderName(credentials) : Observable<any>{

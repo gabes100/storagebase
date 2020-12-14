@@ -4,7 +4,7 @@ function createRouter(db) {
    const router = express.Router();
 
    // Create Order
-   router.post('/order', (req,res) => {
+   router.post('/order/create', (req,res) => {
 
     let newOrder = {
       name : req.body.name,
@@ -28,9 +28,8 @@ function createRouter(db) {
   });
 
   // get order by name
-  router.get('/order', (req,res) => {
-
-    db.query('SELECT * FROM GroceryOrder', function (error, results) {
+  router.post('/order', (req,res) => {
+    db.query('SELECT * FROM GroceryOrder WHERE userId = ?',req.body.userId , function (error, results) {
         if (error) {
             res.status(402).json();
         } else {
