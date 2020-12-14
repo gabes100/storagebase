@@ -25,7 +25,7 @@
                     <td>{{item.expiration}}</td>
                     <td> 
                     <div>
-                        <button class="btn btn-success" data-toggle="modal" data-target="#storageAdd"><i class="fa fa-plus"></i></button>
+                        <button class="btn btn-success" data-toggle="modal" (click)="openAddModal(item)" data-target="#storageAdd"><i class="fa fa-plus"></i></button>
                     </div>
                     </td>
                 </tr>
@@ -67,16 +67,27 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="storageAdd">Add to Unit</h5>
+                <h5 class="modal-title" id="storageAdd">Add to Storage Unit</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-               <p>test</p>
+                <nav>
+                    <ul *ngFor="let unit of units; let i = index" class="list-group">
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                          <span>{{unit.storageName}}</span>
+                        </div>
+                        <div>
+                          <button class="btn btn-success btn-circle" (click)="addToUnit(unit)"><i class="fa fa-plus"></i></button>
+                       </div>
+                      </li>
+                    </ul>
+                  </nav>
             </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn-primary float-right">Create</button>
+              <button data-dismiss="modal" class="btn btn-primary float-right">Close</button>
             </div>
         </div>
     </div>

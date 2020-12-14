@@ -12,6 +12,7 @@ import { RegisterComponent } from './register/register.component';
 import { ProfileNavComponent } from './profile-nav/profile-nav.component';
 import { OrderComponent } from './order/order.component';
 import { ItemComponent } from './item/item.component';
+import { ItemViewComponent } from './item-view/item-view.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { ItemComponent } from './item/item.component';
     RegisterComponent,
     ProfileNavComponent,
     OrderComponent,
-    ItemComponent
+    ItemComponent,
+    ItemViewComponent
   ],
   imports: [
     BrowserModule,

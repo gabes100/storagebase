@@ -24,6 +24,18 @@ function createRouter(db) {
     });
   });
 
+  // Update item storage unit
+  router.post('/item/unit', (req,res) => {
+    var query = 'UPDATE Item SET storageId =' +req.body.storageId + " WHERE id = " + req.body.itemId;
+      db.query(query, function (error, results) {
+        if (error) {
+          res.status(402).json();
+        } else {
+          res.json(results); // success return item
+        }
+      });
+    });
+
   // get items by orderId
   router.post('/item/order', (req,res) => {
     db.query('SELECT * FROM Item WHERE orderID = ?', req.body.orderID, function (error, results) { 
