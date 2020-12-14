@@ -1,0 +1,44 @@
+.container-top {
+    margin-top: 50px;
+}
+
+li {
+    margin-top: 5px; 
+    margin-bottom: 5px; 
+}
+
+.thead-light {
+    text-align: center;
+}
+
+#search-btn {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    margin-left: 5px;
+}
+
+.badge {
+    margin-left: 10px;
+}
+
+
+li:hover {
+    background-color: #a2ceea;
+    cursor: pointer;
+}
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.42857;
+}
+
+nav {height:50x}
+nav {overflow:hidden;  max-height:300px; overflow-y:scroll;}
+
+.main-table {height:50x}
+.main-table {overflow:hidden;  max-height:400px; overflow-y:scroll;}

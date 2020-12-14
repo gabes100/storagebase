@@ -52,4 +52,12 @@ export class ApiService {
   setStorageUnit(credentials) : Observable<any> {
     return this.http.post<Item>(this.baseURL + 'item/unit', credentials);
   }
+
+  getItemsByUnit(credentials) : Observable<any> {
+    return this.http.post<Item>(this.baseURL + 'item/unitname', credentials);
+  }
+
+  getItemsByName(credentials) : Observable<any> {
+    return this.http.post<Item>(this.baseURL + 'item/itemname', credentials);
+  }
 }

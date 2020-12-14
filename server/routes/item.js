@@ -47,6 +47,29 @@ function createRouter(db) {
     });
   });
 
+  // get items by storageID
+  router.post('/item/unitname', (req,res) => {
+    db.query('SELECT * FROM Item WHERE storageID = ?', req.body.storageId, function (error, results) { 
+        if (error) {
+            res.status(402).json();
+        } else {
+            res.json(results); 
+        }
+    });
+  });
+
+  // get items by name
+    router.post('/item/itemname', (req,res) => {
+      var query = 'SELECT * FROM Item WHERE name LIKE \'%'+ req.body.searchString + '%\''; 
+      db.query(query, req.body.storageId, function (error, results) { 
+          if (error) {
+              res.status(402).json();
+          } else {
+              res.json(results); 
+          }
+      });
+    });
+
   // get items with no storages
   router.get('/item/nostorage', (req,res) => {
     db.query('SELECT * FROM Item WHERE storageID is null', function (error, results) { 

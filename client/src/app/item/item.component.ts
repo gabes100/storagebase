@@ -23,17 +23,17 @@ export class ItemComponent implements OnInit {
 
   constructor(
     private router : Router,
-    private api : ApiService) { }
+    private api : ApiService) {
+      this.api.getItemsNoStorage().subscribe(items =>{
+        this.items = items;
+  
+        if (this.items.length == 0) {
+          this.router.navigate(['item-view']);
+        }
+      });
+     }
 
   ngOnInit(): void {
-    this.api.getItemsNoStorage().subscribe(items =>{
-      this.items = items;
-
-      if (this.items.length == 0) {
-        this.router.navigate(['item-view']);
-      }
-    });
-
     this.api.getStorageUnits().subscribe(units => {
       this.units = units;
     });
@@ -55,6 +55,10 @@ export class ItemComponent implements OnInit {
       };
       this.api.createUnit(credentials).subscribe(result => {
         alert("Unit Created");
+
+        this.api.getStorageUnits().subscribe(units => {
+          this.units = units;
+        });
        });
      
     } else {

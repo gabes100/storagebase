@@ -17,6 +17,11 @@
     line-height: 1.42857;
 }
 
+.thead-light {
+    text-align: center;
+}
+
+
 .badge {
     margin-left: 10px;
 }
