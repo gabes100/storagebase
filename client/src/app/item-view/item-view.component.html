@@ -59,7 +59,7 @@
                         <td>{{item.expiration}}</td>
                         <td> 
                         <div>
-                            <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                            <button (click)="removeItem(item)"class="btn btn-danger"><i class="fa fa-trash"></i></button>
                         </div>
                         </td>
                     </tr>

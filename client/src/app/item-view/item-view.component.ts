@@ -23,9 +23,7 @@ export class ItemViewComponent implements OnInit {
     private api : ApiService) { }
 
   ngOnInit(): void {
-    this.api.getStorageUnits().subscribe(units => {
-      this.units = units;
-    });
+    this.updateView();
 
     this.storageUnit = JSON.parse(localStorage.getItem('selected-unit'));
 
@@ -100,6 +98,22 @@ export class ItemViewComponent implements OnInit {
     this.api.getStorageUnits().subscribe(units => {
       this.units = units;
     });
+  }
+
+  removeItem(data: any) : void {
+
+    let cred = {
+      itemId: data.id
+    }
+    this.api.removeItem(cred).subscribe(item => {
+      if (item) {
+        alert("Item has been deleted");
+        localStorage.removeItem('selected-unit');
+        location.reload();
+      }
+    });
+
+    
   }
 
   leave() : void {

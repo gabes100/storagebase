@@ -5,15 +5,16 @@ function createRouter(db) {
 
    // Create Item
    router.post('/item', (req,res) => {
-    
     let newItem = {
       name : req.body.name,
       expiration : req.body.expiration,
       price : req.body.price,
       quantity : req.body.quantity,
-      itemType : req.body.itemType,
+      typeId : req.body.typeId,
       orderId : req.body.orderId,
     }
+
+    
 
     db.query('INSERT INTO Item SET ?',newItem, function (error, results) {
       if (error) {
@@ -39,6 +40,17 @@ function createRouter(db) {
   // get items by orderId
   router.post('/item/order', (req,res) => {
     db.query('SELECT * FROM Item WHERE orderID = ?', req.body.orderID, function (error, results) { 
+        if (error) {
+            res.status(402).json();
+        } else {
+            res.json(results); 
+        }
+    });
+  });
+
+   // remove an item
+   router.post('/item/remove', (req,res) => {
+    db.query('DELETE FROM Item WHERE id = ?', req.body.itemId, function (error, results) { 
         if (error) {
             res.status(402).json();
         } else {

@@ -93,14 +93,13 @@ export class OrderComponent implements OnInit {
         };
        
        this.api.createOrder(credentials_order).subscribe(newOrder => {
-          this.itemList.forEach(item => {
-   
+          this.itemList.forEach(item => {   
           let credentials_item = {
             name : item.name, 
             expiration: item.expiration.toString(), 
             price: Number(item.price),
             quantity: item.quantity,
-            itemType: item.type, 
+            typeId: Number(item.typeId), 
             orderId: newOrder.id,
           };
           this.api.enterItem(credentials_item).subscribe();
@@ -117,9 +116,10 @@ export class OrderComponent implements OnInit {
     if (!this.itemForm.valid){
       alert("Some item attributes are not filled in :(");
     } else {
+     
       const newItem = {
         name: this.itemForm.get("itemName").value,
-        type: this.itemForm.get("type").value,
+        typeId: this.itemForm.get("type").value,
         price: this.itemForm.get("price").value,
         expiration: this.itemForm.get("expiration").value,
         quantity: this.itemForm.get("quantity").value

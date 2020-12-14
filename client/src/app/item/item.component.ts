@@ -34,7 +34,7 @@ export class ItemComponent implements OnInit {
      }
 
   ngOnInit(): void {
-    this.api.getStorageUnits().subscribe(units => {
+    this.api.getAllStorageUnits().subscribe(units => {
       this.units = units;
     });
 
@@ -77,11 +77,8 @@ export class ItemComponent implements OnInit {
       itemId : this.currentItem.id
     }
     this.api.setStorageUnit(cred).subscribe(result => {
-      alert("Item Storage Unit Updated");
       location.reload();
-     });
-
-     
+     });     
 
   }
 

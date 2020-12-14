@@ -40,6 +40,10 @@ export class ApiService {
   enterItem(credentials) : Observable<any>{
     return this.http.post<Item>(this.baseURL +'item', credentials);
   }
+  
+  removeItem(credentials) : Observable<any>{
+    return this.http.post<Item>(this.baseURL +'item/remove', credentials);
+  }
 
   createUnit(credentials) : Observable<any>{
     return this.http.post<Item>(this.baseURL +'storageunit', credentials);
@@ -55,6 +59,10 @@ export class ApiService {
 
   getItemsByUnit(credentials) : Observable<any> {
     return this.http.post<Item>(this.baseURL + 'item/unitname', credentials);
+  }
+
+  getAllStorageUnits() : Observable<any> {
+    return this.http.get<any>(this.baseURL + 'storageunit/unitonly');
   }
 
   getItemsByName(credentials) : Observable<any> {
