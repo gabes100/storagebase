@@ -23,21 +23,23 @@
     <div class="container container-top">
         <div *ngIf="storageUnit" class="card main">
             <div class="card-header">
-                <h3 style="text-align: center;"><strong>{{storageUnit.storageName}}</strong></h3>
-                <h4 style="text-align: center;">{{storageUnit.count}} Items</h4>
+                <h3 *ngIf="!expireView" style="text-align: center;"><strong>{{storageUnit.storageName}}</strong></h3>
+                <h3 *ngIf="expireView" style="text-align: center;"><strong>Expiring Items</strong></h3>
+                <h4 *ngIf="!expireView" style="text-align: center;">{{storageUnit.count}} Items</h4>
                 <button (click)="leave()" class="btn btn-danger float-right">Leave</button>
             </div>
             <div class="card-body menu">
                 <div class="row">
-                    <div class="col-md-9">
+                    <div class="col-md-8">
                       <form [formGroup]="searchForm">
                         <label for="search">Search by Name</label>
                         <input type="text" class="form-control" id="search" formControlName="searchInput">
                       </form>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                       <button id="search-btn" (click)="searchByName()" class="btn btn-primary">Search</button>
                       <button id="search-btn" (click)="clearFilter()" class="btn btn-danger">Clear</button>
+                      <button id="search-btn" (click)="getExpireItems()" class="btn btn-info">Expiring Soon</button>
                     </div>
                   </div>         
                 <div class="main-table">

@@ -82,6 +82,22 @@ function createRouter(db) {
       });
     });
 
+
+  // get items with expiration
+  router.post('/item/expire', (req,res) => {
+    var query = `SELECT * FROM Item WHERE id IN 
+                          (SELECT Item.id FROM Item INNER JOIN GroceryOrder ON 
+                            Item.orderId = GroceryOrder.id 
+                          WHERE userid = ` + req.body.userId + ') ' + 
+                'AND Item.expiration <= DATE(CURDATE() + 3);';
+    db.query(query, function (error, results) { 
+        if (error) {
+            res.status(402).json();
+        } else {
+            res.json(results); 
+        }
+    });
+  });
   // get items with no storages
   router.get('/item/nostorage', (req,res) => {
     db.query('SELECT * FROM Item WHERE storageID is null', function (error, results) { 

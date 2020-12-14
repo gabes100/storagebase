@@ -17,6 +17,7 @@ export class ItemViewComponent implements OnInit {
   public storageUnit: any;
   public items: Item[];
   public searchForm: FormGroup;
+  public expireView;
 
   constructor(
     private router : Router,
@@ -31,6 +32,9 @@ export class ItemViewComponent implements OnInit {
       this.updateViewItems();
       
     }
+    
+
+    this.expireView =false;
 
     this.searchForm = new FormGroup({
       searchInput: new FormControl('')
@@ -81,6 +85,7 @@ export class ItemViewComponent implements OnInit {
   
   clearFilter() : void {
     this.searchForm.reset();
+    this.expireView = false;
     this.updateViewItems();
   }
 
@@ -98,6 +103,18 @@ export class ItemViewComponent implements OnInit {
     this.api.getStorageUnits().subscribe(units => {
       this.units = units;
     });
+  }
+
+  getExpireItems(): void {
+    let cred = {
+      userId: this.user.id
+    }
+    this.expireView = true;
+    this.api.getExpireItems(cred).subscribe(items => {
+      this.items=items;
+    });
+
+    this.expireView = true;
   }
 
   removeItem(data: any) : void {

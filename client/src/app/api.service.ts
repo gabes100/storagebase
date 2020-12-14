@@ -36,6 +36,10 @@ export class ApiService {
   getItemsNoStorage() : Observable<any>{
     return this.http.get<Item[]>(this.baseURL +'item/nostorage');
   }
+
+  getExpireItems(credentials) : Observable<any>{
+    return this.http.post<Item[]>(this.baseURL +'item/expire', credentials);
+  }
   
   enterItem(credentials) : Observable<any>{
     return this.http.post<Item>(this.baseURL +'item', credentials);
